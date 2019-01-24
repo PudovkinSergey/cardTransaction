@@ -27,7 +27,7 @@ public class WebServiceConfig {
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema transactionSchema){
         DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
         definition.setPortTypeName("TransactionPort");
-        definition.setTargetNamespace("http://pudovkin.ru/sendedtransactions");
+        definition.setTargetNamespace("http://pudovkin.ru/transactions");
         definition.setLocationUri("/ws");
         definition.setSchema(transactionSchema);
         return definition;

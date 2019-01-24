@@ -9,9 +9,9 @@ import java.util.List;
 
 @Endpoint
 public class TransactionEndpoint {
-    @PayloadRoot(namespace = "http://pudovkin.ru/sendedtransactions",localPart = "GetSendedTransactionsRequest")
+    @PayloadRoot(namespace = "http://pudovkin.ru/transactions",localPart = "GetSendedTransactionsRequest")
     @ResponsePayload
-    public GetSendedTransactionResponse processSendedTransactionRequest(@RequestPayload GetSendedTransactionsRequest request){
+    public GetSendedTransactionResponse processRespone(@RequestPayload GetSendedTransactionsRequest request){
         GetSendedTransactionResponse response = new GetSendedTransactionResponse();
 
         List<Transaction> transactionList= TransactionDAO.getAllSendedTransactions(request.getId());
@@ -20,13 +20,24 @@ public class TransactionEndpoint {
         return response;
     }
 
-    @PayloadRoot(namespace = "http://pudovkin.ru/sendedtransactions",localPart = "GetReceivedTransactionsRequest")
+    @PayloadRoot(namespace = "http://pudovkin.ru/transactions",localPart = "GetReceivedTransactionsRequest")
     @ResponsePayload
-    public GetReceivedTransactionResponse processReceivedTransactionRequest(@RequestPayload GetReceivedTransactionRequest request){
+    public GetReceivedTransactionResponse processResponse (@RequestPayload GetReceivedTransactionRequest request){
         GetReceivedTransactionResponse response = new GetReceivedTransactionResponse();
-
+        System.out.println(request.getId());
         List<Transaction> transactionList = TransactionDAO.getAllReceivedTransactions(request.getId());
         response.setTransactionList(transactionList);
+        return response;
+    }
+
+    @PayloadRoot(namespace = "http://pudovkin.ru/transactions",localPart = "PostTransactionRequest")
+    @ResponsePayload
+    public PostTransactionResponse proccessResponse (@RequestPayload PostTransactionRequest request){
+        PostTransactionResponse response = new PostTransactionResponse();
+        System.out.println(request.getTransactionId()+"hhehehheh");
+        Transaction transaction = TransactionDAO.createTransaction(request.getTransactionId(),request.getSenderId(),
+                request.getRecipientId(),request.getSum());
+        response.setTransaction(transaction);
         return response;
     }
 }

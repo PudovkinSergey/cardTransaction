@@ -23,4 +23,10 @@ public class TransactionDAO {
         return transactionList;
     }
 
+    public static Transaction createTransaction(int transactionId,int senderId,int recipientId,int sum){
+        ////
+        System.out.println(transactionId);
+        return new Transaction(transactionId,senderId,recipientId,sum);
+    }
+
 }

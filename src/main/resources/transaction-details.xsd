@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="http://pudovkin.ru/sendedtransactions"
-           xmlns:tns="http://pudovkin.ru/sendedtransactions" elementFormDefault="qualified">
+           targetNamespace="http://pudovkin.ru/transactions"
+           xmlns:tns="http://pudovkin.ru/transactions" elementFormDefault="qualified">
 
     <xs:element name="GetSendedTransactionsRequest">
         <xs:complexType>
@@ -32,6 +32,25 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name= "transactionList" type="tns:transactionList"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="PostTransactionRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name= "transactionId" type="xs:int"/>
+                <xs:element name= "senderId" type="xs:int"/>
+                <xs:element name= "recipientId" type="xs:int"/>
+                <xs:element name= "sum" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="PostTransactionResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name= "transaction" type="tns:transaction"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
