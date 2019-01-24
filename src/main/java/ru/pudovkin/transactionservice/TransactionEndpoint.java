@@ -11,11 +11,21 @@ import java.util.List;
 public class TransactionEndpoint {
     @PayloadRoot(namespace = "http://pudovkin.ru/sendedtransactions",localPart = "GetSendedTransactionsRequest")
     @ResponsePayload
-    public GetSendedTransactionResponse processSendedTransactionReuest(@RequestPayload GetSendedTransactionsRequest request){
+    public GetSendedTransactionResponse processSendedTransactionRequest(@RequestPayload GetSendedTransactionsRequest request){
         GetSendedTransactionResponse response = new GetSendedTransactionResponse();
 
         List<Transaction> transactionList= TransactionDAO.getAllSendedTransactions(request.getId());
 
+        response.setTransactionList(transactionList);
+        return response;
+    }
+
+    @PayloadRoot(namespace = "http://pudovkin.ru/sendedtransactions",localPart = "GetReceivedTransactionsRequest")
+    @ResponsePayload
+    public GetReceivedTransactionResponse processReceivedTransactionRequest(@RequestPayload GetReceivedTransactionRequest request){
+        GetReceivedTransactionResponse response = new GetReceivedTransactionResponse();
+
+        List<Transaction> transactionList = TransactionDAO.getAllReceivedTransactions(request.getId());
         response.setTransactionList(transactionList);
         return response;
     }
